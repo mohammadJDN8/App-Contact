@@ -1,5 +1,8 @@
 import { useState } from "react";
+import ContactList from "./ContactList";
 function Contact() {
+  const [contacts, setContacts] = useState([]);
+  const [alert, setAlert] = useState("");
   const [contact, setContact] = useState({
     name: "",
     lastName: "",
@@ -12,9 +15,26 @@ function Contact() {
     setContact((contact) => ({ ...contact, [name]: value }));
     console.log(name, value);
   };
+
   const addHandler = () => {
-    console.log(contact)
-  }
+    if (
+      !contact.name ||
+      !contact.lastName ||
+      !contact.email ||
+      !contact.phone
+    ) {
+      setAlert("please inter valid data!");
+      return;
+    }
+    setAlert("");
+    setContacts((contacts) => [...contacts, contact]);
+    setContact({
+      name: "",
+      lastName: "",
+      email: "",
+      phone: "",
+    });
+  };
   return (
     <div>
       <input
@@ -46,6 +66,8 @@ function Contact() {
         name="phone"
       />
       <button onClick={addHandler}>Add contact</button>
+      <div>{alert && <p>{alert}</p>}</div>
+      <ContactList contacts={contacts} />
     </div>
   );
 }
