@@ -1,5 +1,7 @@
 import { useState } from "react";
 import ContactList from "./ContactList";
+import { v4 } from "uuid";
+
 
 const inputs = [
   { type: "text", name: "name", placeholder: "Name" },
@@ -35,8 +37,10 @@ function Contact() {
       return;
     }
     setAlert("");
-    setContacts((contacts) => [...contacts, contact]);
+    const newContact = { ...contact, id: v4() };
+    setContacts((contacts) => [...contacts, newContact]);
     setContact({
+      id : "",
       name: "",
       lastName: "",
       email: "",
@@ -46,7 +50,8 @@ function Contact() {
   return (
     <div>
       <div>
-        {inputs.map((input,index) => (
+        {/**use map for duplicate inputs */}
+        {inputs.map((input, index) => (
           <input
             key={index}
             type={input.type}
