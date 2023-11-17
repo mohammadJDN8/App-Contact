@@ -1,20 +1,14 @@
 import React from "react";
-
+import ContactItem from "./ContactItem";
 function ContactList({ contacts }) {
   return (
     <div>
       <h3>Contact list</h3>
-      {/**list rendering */}
+      {/**conditional rendering */}
       {contacts.length ? (
         <ul>
           {contacts.map((contact) => (
-            <li key={contact.id}>
-              <p>{contact.name} {contact.lastName}</p>
-              <p><span>📧</span> {contact.email}</p>
-              <p><span>📞</span> {contact.phone}</p>
-              <button>🗑️</button>
-              
-            </li>
+            <ContactItem key={contact.id} data={contact} />
           ))}
         </ul>
       ) : (
